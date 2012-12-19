@@ -1,9 +1,10 @@
 \contentsline {section}{\numberline {1}About}{2}{section.1}
 \contentsline {section}{\numberline {2}Installation}{3}{section.2}
 \contentsline {section}{\numberline {3}Model Builder}{3}{section.3}
-\contentsline {section}{\numberline {4}Scalar Field Mapping}{3}{section.4}
-\contentsline {section}{\numberline {5}False Scans}{3}{section.5}
-\contentsline {section}{\numberline {6}Detection}{3}{section.6}
-\contentsline {section}{\numberline {7}Model Combiner}{3}{section.7}
-\contentsline {section}{\numberline {8}Viewer}{3}{section.8}
-\contentsline {section}{\numberline {9}Exporter}{3}{section.9}
+\contentsline {section}{\numberline {4}Scalar Field Mapping}{4}{section.4}
+\contentsline {section}{\numberline {5}False Scans}{4}{section.5}
+\contentsline {section}{\numberline {6}Detection}{5}{section.6}
+\contentsline {section}{\numberline {7}Model Combiner}{5}{section.7}
+\contentsline {section}{\numberline {8}Viewer}{5}{section.8}
+\contentsline {section}{\numberline {9}Exporter}{6}{section.9}
+\contentsline {section}{Bibliography}{8}{section*.3}

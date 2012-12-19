@@ -1,0 +1,25 @@
+\begin{thebibliography}{1}
+
+\bibitem{osmankovicreconstructing}
+D.~Osmankovic and J.~Velagic.
+\newblock Reconstructing the 3d thermal model of indoor environment from
+  unorganized data set acquired by 3d laser scans and thermal imaging camera.
+
+\bibitem{borrmannproject}
+D.~Borrmann, A.~Nuechter, M.~Djakulovic, I.~Maurovic, I.~Petrovic,
+  D.~Osmankovic, and J.~Velagic.
+\newblock The project thermalmapper--thermal 3d mapping of indoor environments
+  for saving energy.
+
+\bibitem{osmankovic2012increasing}
+D.~Osmankovic and J.~Velagic.
+\newblock Increasing the precision of reconstructed 3d model of indoor robot
+  environment by elimination of problematic points.
+\newblock In {\em Robot Control}, volume~10, pages 594--598, 2012.
+
+\bibitem{detection}
+D.~Osmankovic and J.~Velagic.
+\newblock Detecting heat sources and heat leaks from 3d thermal model of indoor
+  environment.
+
+\end{thebibliography}

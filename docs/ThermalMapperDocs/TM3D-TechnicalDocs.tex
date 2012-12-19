@@ -7,6 +7,7 @@
 \documentclass[11pt]{article} % use larger type; default would be 10pt
 
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+\usepackage{natbib}
 
 %%% Examples of Article customizations
 % These packages are optional, depending whether you want the features they provide.
@@ -112,7 +113,8 @@ The source code is divided into folders, each representing distinct module that 
 \item detection - module for detecting heat sources and heat leaks in the 3D model,
 \item modelcombiner - module for combining several 3D models into one,
 \item viewer - Qt based application for viewing, inspecting and analysing the 3D model,
-\item exporter - exporting the 3D model into .vrml and .x3d files.
+\item exporter - exporting the 3D model into .vrml and .x3d files,
+\item DATA - Data folder with sample 3d scan and resulting 3d models.
 
 \end{itemize}
 
@@ -143,19 +145,164 @@ The executables are now built. Same thing can be achieved in Windows and Mac but
 
 \section{Model Builder}
 
+This module is used for building a 3D mesh from the 3D point cloud recorded by laser scanner (written in .3d file). Note that all scans need to be processed by slam6D to register the point cloud into global coordinate system. This is needed for creating a combined model using all of the model reconstructed from point clouds.
+
+After compilation a ModelBuilder executable will appear. You can use it to build a 3D model in .vtp format.
+
+You can run it with this command:
+
+\begin{verbatim}
+$ ./ModelBuilder input_file SampleDimensions Reduction ExponentFactor output_file
+\end{verbatim}
+
+where arguments are:
+\begin{itemize}
+
+\item \textbf{input\_file} - 3d point cloud where the scan recording are written,
+\item \textbf{SampleDimensions} - value of space subdivision, the more is better although takes more time to rebuild the model (default:50),
+\item \textbf{Reduction} - Parameter for intelligent model size reduction (default:0.0),
+\item \textbf{ExponentFactor} - Factor affecting model complexity (default:0.1).
+\end{itemize}
+
+More info about the methodologies can be found in~\citep{osmankovicreconstructing} and in \citep{borrmannproject}.
+
 \section{Scalar Field Mapping}
+
+This module is used to map scalar temperatures acquired by thermal imaging camera (also written in .3d file) onto a newly reconstructed 3d mesh. 
+
+After compilation a ScalarFieldMapping executable will appear. You can use it to build a 3D model in .vtp format, but with added temperature information.
+
+You can run it with this command:
+
+\begin{verbatim}
+$ ./ScalarFieldMapping input_mesh input_pointcloud output_mesh
+\end{verbatim}
+
+where arguments are:
+\begin{itemize}
+
+\item \textbf{input\_mesh} - input file in .vtp format containing the reconstructed 3d model,
+\item \textbf{input\_pointcloud} - input file in .3d format containing the original point cloud with temperatures,
+\item \textbf{output\_mesh} - output file in .vtp format containing the reconstructed 3d model with scalar temperatures mapped onto it,
+\end{itemize}
+
+More info about the methodologies can be found in~\citep{osmankovicreconstructing} and in \citep{borrmannproject}.
+
 
 \section{False Scans}
 
+This module is used to remove points that represent falsely recorder points by laser scanner. This problem is described in \citep{osmankovic2012increasing} in details.
+
+You can run it with this command:
+
+\begin{verbatim}
+$ ./FalseScans input_model output_model number_clusters
+\end{verbatim}
+
+where arguments are:
+\begin{itemize}
+
+\item \textbf{input\_model} - input file in .vtp format containing the 3d point cloud,
+\item \textbf{output\_model} - output file in .vtp format containing the 3d point cloud,
+\item \textbf{number\_clusters} - number of clusters.
+\end{itemize}
+
+Alternatively you can use the fuzzy C means clustering by:
+
+\begin{verbatim}
+$ ./FalseScans_FCM input_model output_model number_clusters expo max_iter min_impro
+\end{verbatim}
+
+where arguments are:
+\begin{itemize}
+
+\item \textbf{input\_model} - input file in .vtp format containing the 3d point cloud,
+\item \textbf{output\_model} - output file in .vtp format containing the 3d point cloud,
+\item \textbf{number\_clusters, expo, max\_iter, min\_impro} - parameters of fuzzy C means clustering.
+\end{itemize}
+
 \section{Detection}
+
+This module is using clustering methodology to detect heat sources and leaks. You can use it with this command:
+
+\begin{verbatim}
+$ ./LeakDetection input output number_of_clusters det
+\end{verbatim}
+
+where arguments are:
+\begin{itemize}
+
+\item \textbf{input} - input file in .vtp format containing the 3d point cloud,
+\item \textbf{output} - output file in .vtp format containing the 3d point cloud,
+\item \textbf{number\_of\_clusters} - number of clusters of temperature,
+\item \textbf{det} - det = 1 for leaks of det = 2 for heat sources.
+\end{itemize}
+
+More info can be found in~\citep{detection}.
 
 \section{Model Combiner}
 
+This module is simply used to combine several models in .vtp format into one model. You can use it with this command:
+
+\begin{verbatim}
+$ ./ModelCombiner output input1 input2 input3 ...
+\end{verbatim}
+
+As you can see, you can add as many input files as you can and produce one output file.
+
 \section{Viewer}
+
+In this module the viewer application is contained. This is a simple Qt based application, and by using Qt it was designed specifically for desktop cross-platform running (Windows, Linux, MacOS) as well as embedded.
+
+After compiling the application it can be started by running it either from desktop or console. Few screenshots are given in Fig. \ref{fig:viewer}.
+
+This application allows opening the model and simple inspection. By using mouse, trackball or joystick and keyboard you can get basic interactive inspection of the model - moving, rotating etc. You can also move by arrow buttons in the GUI.
+
+Also, by using keyboard you can activate picker tool (key P) so you can get a temperature information for every point in the model.
+
+If you want to see the model in different colourmaps you choose from 4 different colourmaps that are implemented in the applicaton. It is required to refresh the colourmap by pressing the button.
+
+
+\begin{center}
+\begin{figure}[h]
+\includegraphics[width=0.49\textwidth]{take1} \includegraphics[width=0.49\textwidth]{take2} \\
+\includegraphics[width=0.49\textwidth]{take3} \includegraphics[width=0.49\textwidth]{take4}
+\caption{Screenshots of viewer application\label{fig:viewer}}
+\end{figure}
+\end{center}
 
 \section{Exporter}
 
+This module is used for exporting the model into VRML type formats. You can used it with this command:
+
+\begin{verbatim}
+$ ./ModelExporter input output type
+\end{verbatim}
+
+where arguments are:
+\begin{itemize}
+
+\item \textbf{input} - input file in .vtp format containing the 3d point cloud,
+\item \textbf{output} - output file in vrml type format,
+\item \textbf{type} - type = x3d or vrml for selecting the output format.
+\end{itemize}
+
+\newpage
+
+Always remember the Arnold's Laws of Documentation:
+\begin{enumerate}
+
+\item If it should exist, it doesn't.
+\item If it does exist, it's out of date.
+\item Only documentation for useless programs transcends the first two laws.
+    
+\end{enumerate}
 
 
+\newpage
+
+
+\bibliographystyle{unsrt} 
+\bibliography{ref}
 
 \end{document}
