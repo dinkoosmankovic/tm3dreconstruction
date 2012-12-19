@@ -1,0 +1,161 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+\usepackage{hyperref}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+\title{ThermalMapper 3D reconstruction - Technical Documentation}
+\author{Dinko Osmanković}
+\date{September, 2012} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+
+\begin{document}
+
+% ---------------------- TITLE PAGE ---------------------------------
+\begin{titlepage}
+
+\begin{center}
+
+
+% Upper part of the page
+\includegraphics[width=0.25\textwidth]{unsa}\\[1cm]    
+
+\textsc{\Large University of Sarajevo}\\[0.2cm]
+\textsc{\Large Faculty of Electrical Engineering}\\[0.2cm]
+\textsc{\Large Department of automatic control and electronics}\\[7cm]
+
+\textsc{\LARGE \textbf{ThermalMapper 3D reconstruction - Technical Documentation}}
+\\
+
+
+\vfill
+\begin{center}
+Dinko \textsc{Osmanković}\\
+\vspace{5mm}
+Sarajevo, September 2012.
+\end{center}
+\end{center}
+\end{titlepage}
+
+% ---------------------- TITLE PAGE ---------------------------------
+
+
+%\maketitle
+\newpage
+
+\tableofcontents
+
+\newpage
+
+
+\section{About}
+
+This document represents the technical documentation that is accompanied by the source code of the 3D model reconstruction procedure of the ThermalMapper Project\footnote{ThermalMapper is a SEE-ERA.NET project and has the project number ERA 14/01. SEE-ERA.NET PLUS has launched a joint call for European Research projects in September 2009 in order to enhance the integration of the Western Balkan Countries into the European Research Area. \url{http://www.faculty.jacobs-university.de/anuechter/thermalmapper.html}}.
+
+The source code is divided into folders, each representing distinct module that can be used separately for different purposes:
+
+\begin{itemize}
+
+\item modelbuilder - building 3D mesh from point cloud,
+\item scalarfieldmapping - mapping temperature scalar field onto reconstructed 3D mesh,
+\item falsescans - increasing the density of the point cloud by the removal of problematic points which increases overall precision of the model,
+\item detection - module for detecting heat sources and heat leaks in the 3D model,
+\item modelcombiner - module for combining several 3D models into one,
+\item viewer - Qt based application for viewing, inspecting and analysing the 3D model,
+\item exporter - exporting the 3D model into .vrml and .x3d files.
+
+\end{itemize}
+
+This work is an extension of the work done by Jacobs University in 6D slam: \url{http://slam6d.sourceforge.net/}
+
+\newpage
+
+\section{Installation}
+
+The environment for building the code is chosen to be Qt and standard C++. This means that all code and GUI should compile and run across all desktop platforms (Linux, Windows, Mac).
+
+The code was developed using Ubuntu Linux (versions 10.04 and 12.04). It is recommended to have Ubuntu Linux 12.04 LTS installed on your machine.
+
+Also, VTK 5.8 or newer is needed, along with Qt4 (4.8). In Ubuntu, you should run these console commands:
+
+\begin{verbatim}
+$ sudo apt-get install libvtk5-dev qt4-dev-tools libqt4-dev libqt4-core libqt4-gui
+\end{verbatim}
+
+After this, you can compile the code by going into each module and running these console commands:
+
+\begin{verbatim}
+$ qmake ModuleName.pro
+$ make
+\end{verbatim}
+
+The executables are now built. Same thing can be achieved in Windows and Mac but you need to configure the environment. It should be automatic with Qt SDK. Also, you need to install VTK and add the paths into .pro  files in each module.
+
+\section{Model Builder}
+
+\section{Scalar Field Mapping}
+
+\section{False Scans}
+
+\section{Detection}
+
+\section{Model Combiner}
+
+\section{Viewer}
+
+\section{Exporter}
+
+
+
+
+\end{document}
